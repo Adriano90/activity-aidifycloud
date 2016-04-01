@@ -6,17 +6,14 @@ let mongoose = require('mongoose');
 
 let activitySchema = mongoose.Schema({
     id: Number,
-	activities: [
-		{
-			createdAt: Date,
-			type: String,
-			action: String,
-			repo: String
-		}
-	]
+	createdAt: Date,
+	type: String,
+	action: String,
+	repo: String,
+	user: String
 });
 
-activitySchema.index({ id: 1 }, { unique: true })
+activitySchema.index({ user: 1 })
 
 let activityModel = mongoose.model('Activity', activitySchema);
 

@@ -8,7 +8,7 @@ const Response = require('./response');
 
 class Server {
 	
-	constructor(logger, getAllActivities) {
+	constructor(logger, getActivities) {
 		let api = restify.createServer({
 			name: config.name,
 			version: config.version
@@ -17,12 +17,17 @@ class Server {
 		api.use(restify.queryParser());
 		api.use(restify.bodyParser());
 		
-		api.get('/user/:id', function(req, res) {
+		api.get('/activity', function(req, res) {
 			if (logger) {
 				logger.info('request GET : /user');
 			}
 			
-			getAllActivities.execute(req.params, new Response(res, logger));
+			let params = {};
+			if (req.query && req.query.user) {
+				params['user'] = req.query.user;
+			}
+			
+			getActivities.execute(params, new Response(res, logger));
 		});
 		
 		api.listen(process.env.PORT || 5003,function () {

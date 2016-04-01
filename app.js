@@ -16,15 +16,15 @@ new DbInit(logger);
 
 // Webservice bootstrap
 const Server = require('./webservice/server');
-const GetAllActivitiesUseCase = require('./usecases/getallactivities');
+const GetActivitiesUseCase = require('./usecases/getactivities');
 const ActivityMapper = require('./model/activitymapper');
 const ActivityRepository = require('./model/activityrepository');
 const ActivityModel = require('./db/activitymodel');
 
 let activityRepository = new ActivityRepository(logger, ActivityMapper, ActivityModel);
-let getAllActivitiesUseCase = new GetAllActivitiesUseCase(activityRepository);
+let getActivitiesUseCase = new GetActivitiesUseCase(activityRepository);
 
-new Server(logger, getAllActivitiesUseCase);
+new Server(logger, getActivitiesUseCase);
 
 // Broker bootstrap
 const Broker = require('./messagebroker/broker');
@@ -32,6 +32,6 @@ const SaveActivityUseCase = require('./usecases/saveactivity');
 
 let saveActivityUseCase = new SaveActivityUseCase(activityRepository);
 
-new Broker(logger, saveActivityUseCase);
+let broker = new Broker(logger, saveActivityUseCase);
 
 })();

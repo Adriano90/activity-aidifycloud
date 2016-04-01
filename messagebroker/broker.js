@@ -6,7 +6,7 @@ const redis = require('redis');
 
 class Broker {
 
-	constructor(logger, saveUser) {
+	constructor(logger, saveActivity) {
 		
 		this.client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
 		this.client.auth(process.env.REDIS_PASSWORD);
@@ -18,11 +18,10 @@ class Broker {
 				logger.info('Action: ' + action + ', Message: ' + message);
 			}
 			if(service == 'ACTIVITYMANAGEMENT' && action == 'CREATE_ACTIVITY') {
-				saveUser.execute(JSON.parse(message.substring(message.indexOf(':')+1, message.length)));
+				saveActivity.execute(JSON.parse(message.substring(message.indexOf(':')+1, message.length)));
 			}
 		});
 	}
-
 }
 
 module.exports = Broker;
