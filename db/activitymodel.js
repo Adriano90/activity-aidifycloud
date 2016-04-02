@@ -10,7 +10,8 @@ let activitySchema = mongoose.Schema({
 	type: String,
 	action: String,
 	repo: String,
-	user: String
+	user: String,
+	points: Number
 });
 
 activitySchema.index({ user: 1 })

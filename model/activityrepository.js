@@ -17,10 +17,8 @@ class ActivityRepository {
 			self.ActivityModel.find(params, function(err, activities) {
 				if (err) {
 					self.logger.error(err)
-					reject(err);
-					return;
+					return reject(err);
 				}
-
 				resolve(activities.map((elem) => self.mapper.fromDB(elem)));
 			});
 		});
