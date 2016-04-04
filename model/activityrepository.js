@@ -26,7 +26,6 @@ class ActivityRepository {
 	
 	saveActivity(activity) {
 		let self = this;
-		activity['createdAt'] = new Date();
 		self.ActivityModel.create(
 			activity, 
 			function(err, res) {

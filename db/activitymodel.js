@@ -6,12 +6,12 @@ let mongoose = require('mongoose');
 
 let activitySchema = mongoose.Schema({
     id: Number,
-	createdAt: Date,
 	type: String,
 	action: String,
 	repo: String,
 	user: String,
-	points: Number
+	points: Number,
+	createdAt: Date
 });
 
 activitySchema.index({ user: 1 })
