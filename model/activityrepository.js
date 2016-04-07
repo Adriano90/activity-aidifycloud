@@ -4,7 +4,7 @@
 
 class ActivityRepository {
 
-	constructor(logger, mapper, ActivityModel, broker) {
+	constructor(logger, mapper, ActivityModel) {
 		this.logger = logger;
 		this.mapper = mapper;
 		this.ActivityModel = ActivityModel;
@@ -14,13 +14,16 @@ class ActivityRepository {
 		let self = this;
 		self.logger.info('Retrieving all activities');
 		return new Promise(function (resolve,reject) {
-			self.ActivityModel.find(params, function(err, activities) {
-				if (err) {
-					self.logger.error(err)
-					return reject(err);
-				}
-				resolve(activities.map((elem) => self.mapper.fromDB(elem)));
-			});
+			self.ActivityModel.find(params)
+				.sort({'createdAt': -1})
+				.limit(25)
+				.exec(function(err, activities) {
+					if (err) {
+						self.logger.error(err)
+						return reject(err);
+					}
+					resolve(activities.map((elem) => self.mapper.fromDB(elem)));
+				});
 		});
 	}
 	

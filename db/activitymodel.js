@@ -14,7 +14,8 @@ let activitySchema = mongoose.Schema({
 	createdAt: Date
 });
 
-activitySchema.index({ user: 1 })
+activitySchema.index({ user: 1 });
+activitySchema.index({ createdAt: -1 })
 
 let activityModel = mongoose.model('Activity', activitySchema);
 
