@@ -11,7 +11,8 @@ let activitySchema = mongoose.Schema({
 	repo: String,
 	user: String,
 	points: Number,
-	createdAt: Date
+	createdAt: Date,
+	affectedStats: [String]
 });
 
 activitySchema.index({ user: 1 });
